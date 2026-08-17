@@ -10,13 +10,29 @@
 </head>
 <body>
 <main>
+    <section class="header">
         <h1>Розрахунок витрат</h1>
         <!-- Блок вводу даних -->
         <input type="number" class="income" id="personA" placeholder="Person A">
         <input type="number" class="income" id="personB" placeholder="Person B">
         <input type="number" class="income" id="paycheck" placeholder="Amount to be paid">
+    </section>
         <!-- Блок відображення результатів -->
-         
+         <article class="results">
+            <h2>РЕЗУЛЬТАТ РОЗРАХУНКУ</h2>
+            <div class="result" id="resultA">
+                <output id="resultAOutput">0</output>
+            </div>
+            <div class="result" id="resultB">
+                <output id="resultBOutput">0</output>
+            </div>
+             <div class="result" id="PartA">
+                <output id="PartAOutput">0</output>
+            </div>
+             <div class="result" id="PartB">
+                <output id="PartBOutput">0</output>
+            </div>
+        </article>
 
 </main>
 
