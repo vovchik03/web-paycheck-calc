@@ -88,6 +88,8 @@ h1 {
     cursor: pointer;
     transition: background 0.15s ease, transform 0.05s ease;
     letter-spacing: 0.1em;
+    position: relative;
+    display: block;
     text-align: center;
 }
 
@@ -98,6 +100,23 @@ h1 {
 .btn-calc:active {
     background: #012564;
     transform: scale(0.98);
+}
+
+.check-mark{
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+
+}
+
+.btn-calc-pl{
+    fill:none;
+    stroke: #f5f6f8;
+    stroke-width: 3px;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    flex-shrink: 0;
 }
 
 .results {
