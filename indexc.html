@@ -28,7 +28,7 @@
             </svg>
             <div class="field-text">
                 <label for="personA">Дохід Особи A</label>
-                <input type="text" inputmode="decimal" class="income" id="personA" placeholder="Напр: 25000">
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]{0,2}" autocomplete="off" class="income" id="personA" placeholder="Напр: 25000">
             </div>
         </div>
         <div class="field-card">
@@ -37,7 +37,7 @@
             </svg>
             <div class="field-text">
                 <label for="personB">Дохід Особи Б</label>
-                <input type="text" inputmode="decimal" class="income" id="personB" placeholder="Напр: 30000">
+                <input type="text" inputmode="decimal" pattern="[0-9]*[.,]?[0-9]{0,2}" autocomplete="off" class="income" id="personB" placeholder="Напр: 30000">
             </div>
 
         </div>
@@ -47,7 +47,7 @@
             </svg>
             <div class="field-text">
                 <label for="paycheck">Сума до виплати (&#8372;)</label>
-                <input type="text" inputmode="decimal"pattern="[0-9]*[.,]?[0-9]{0,2}" autocomplete="off" class="income" id="paycheck" placeholder="Напр: 15000.00">
+                <input type="text" inputmode = "decimal" pattern="[0-9]*[.,]?[0-9]{0,2}" autocomplete="off" class="income" id="paycheck" placeholder="Напр: 15000.00">
             </div>
         </div>
         <div class ="button-calc-div">

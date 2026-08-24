@@ -29,3 +29,18 @@ paychek_field.addEventListener('input', () =>{
     const shift = before.length - after.length;
     paychek_field.setSelectionRange(caret - shift, caret - shift);
 });
+
+const BtnCalc = document.getElementById('calcBtn');
+
+function CalculatePersent(a,b){
+    let persent = a/b;
+    console.log(persent+'\n');
+    return persent;
+}
+
+BtnCalc.addEventListener('click', ()=>{
+
+
+
+    
+})
