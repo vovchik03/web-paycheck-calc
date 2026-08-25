@@ -83,7 +83,7 @@ BtnCalc.addEventListener('click', ()=>{
     let paycheck = Number(paychek_field.value);
     //res = parseFloat(person_a_input.value) + parseFloat(person_b_input.value);
     //res = Number(person_a_input.value) + Number(person_b_input.value);
-    console.log(res + " " + pers_a + " " + pers_b );
+    console.log(pers_a + " " + pers_b );
 
     let sum = pers_a + pers_b;
     let pers_a_part, pers_b_part, pers_a_per,pers_b_per ;
@@ -97,6 +97,8 @@ BtnCalc.addEventListener('click', ()=>{
         PersBper.textContent = pers_b_per.toFixed(2);
         pers_a_part = paycheck * (pers_a_per / 100);
         pers_b_part = paycheck * (pers_b_per / 100);
+        PersApart.textContent = pers_a_part.toFixed(2);
+        PersBpart.textContent = pers_b_part.toFixed(2);
         console.log("good " + pers_a_part + " " + pers_b_part);
     }
     
