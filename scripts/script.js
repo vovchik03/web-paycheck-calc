@@ -63,6 +63,7 @@ const PersAper = document.getElementById('resultAOutput');
 const PersBper = document.getElementById('resultBOutput');
 const PersApart = document.getElementById('PartAOutput');
 const PersBpart = document.getElementById('PartBOutput');
+const FieldCard = document.getElementsByClassName('field-card');
 
 function CalculatePersent(a,b){
     let persent = a/b;
@@ -72,11 +73,29 @@ function CalculatePersent(a,b){
 
 BtnCalc.addEventListener('click', ()=>{
     
-    if(Number(person_a_input.value) == 0 && Number(person_b_input.value) == 0){
+    for(let i = 0; i < FieldCard.length; i++){
+        FieldCard[i].classList.remove('fail');
+    }
+    //console.log(Number.isFinite(Number(""))+ " " + Number("")) ;    // ?
+    //console.log(Number.isFinite(parseFloat("")) + " " + parseFloat("")) ; // ?
+
+
+    if(!Number.isFinite(parseFloat(person_a_input.value)) && !Number.isFinite(parseFloat(person_b_input.value))){
         console.log("invalid");
+        FieldCard[0].classList.add('fail');
+        FieldCard[1].classList.add('fail');
         return;
     }
+    if(!Number.isFinite(parseFloat(person_a_input.value))) {
+        FieldCard[0].classList.add('fail');
+        return;
+    }
+    if(!Number.isFinite(parseFloat(person_b_input.value))){
+        FieldCard[1].classList.add('fail');
+        return;
+    } 
 
+    
     let res; 
     let pers_a = Number(person_a_input.value);
     let pers_b = Number(person_b_input.value);
@@ -88,7 +107,7 @@ BtnCalc.addEventListener('click', ()=>{
     let sum = pers_a + pers_b;
     let pers_a_part, pers_b_part, pers_a_per,pers_b_per ;
 
-    if(sum !== pers_a | pers_b){
+    if(sum !== pers_a || sum !== pers_b){
         
         pers_a_per = (pers_a / sum) * 100;
         pers_b_per = (pers_b / sum) * 100;
