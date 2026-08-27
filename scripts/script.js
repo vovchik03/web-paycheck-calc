@@ -1,6 +1,6 @@
 
 
-const paychek_field = document.getElementById("paycheck");
+const paycheck_field = document.getElementById("paycheck");
 const person_a_input = document.getElementById("personA");
 const person_b_input = document.getElementById("personB");
 
@@ -19,44 +19,21 @@ function sanitizeInput(a){
 
 }
 
-paychek_field.addEventListener('input', () =>{
-    const caret = paychek_field.selectionStart;
-    const before = paychek_field.value;
-    const after = sanitizeInput(before);
-    if(after === before){
-        return;
-    }
+document.querySelectorAll('.income').forEach(input => {
+    input.addEventListener('input', () =>{
+        const caret = input.selectionStart;
+        const before = input.value;
+        const after = sanitizeInput(before);
+        if(after === before){
+            return;
+        }
 
-    paychek_field.value = after;
-    const shift = before.length - after.length;
-    paychek_field.setSelectionRange(caret - shift, caret - shift);
+        input.value = after;
+        const shift = before.length - after.length;
+        input.setSelectionRange(caret - shift, caret - shift);
+    });
 });
 
-person_a_input.addEventListener('input', () =>{
-    const caret = person_a_input.selectionStart;
-    const before = person_a_input.value;
-    const after = sanitizeInput(before);
-    if(after === before){
-        return;
-    }
-
-    person_a_input.value = after;
-    const shift = before.length - after.length;
-    person_a_input.setSelectionRange(caret - shift, caret - shift);
-});
-
-person_b_input.addEventListener('input', () =>{
-    const caret = person_b_input.selectionStart;
-    const before = person_b_input.value;
-    const after = sanitizeInput(before);
-    if(after === before){
-        return;
-    }
-
-    person_b_input.value = after;
-    const shift = before.length - after.length;
-    person_b_input.setSelectionRange(caret - shift, caret - shift);
-});
 
 const BtnCalc = document.getElementById('calcBtn');
 const PersAper = document.getElementById('resultAOutput');
@@ -65,12 +42,6 @@ const PersApart = document.getElementById('PartAOutput');
 const PersBpart = document.getElementById('PartBOutput');
 const FieldCard = document.getElementsByClassName('field-card');
 
-function CalculatePersent(a,b){
-    let persent = a/b;
-    console.log(persent+'\n');
-    return persent;
-}
-
 BtnCalc.addEventListener('click', ()=>{
     
     for(let i = 0; i < FieldCard.length; i++){
@@ -78,8 +49,6 @@ BtnCalc.addEventListener('click', ()=>{
     }
     //console.log(Number.isFinite(Number(""))+ " " + Number("")) ;    // ?
     //console.log(Number.isFinite(parseFloat("")) + " " + parseFloat("")) ; // ?
-
-
     if(!Number.isFinite(parseFloat(person_a_input.value)) && !Number.isFinite(parseFloat(person_b_input.value))){
         console.log("invalid");
         FieldCard[0].classList.add('fail');
@@ -94,15 +63,26 @@ BtnCalc.addEventListener('click', ()=>{
         FieldCard[1].classList.add('fail');
         return;
     } 
-
+    if(!Number.isFinite(parseFloat(paycheck_field.value))){
+        FieldCard[2].classList.add('fail');
+        return;
+    } 
+    if(Number(paycheck_field.value) > Number(person_a_input.value) + Number(person_b_input.value)){
+        FieldCard[2].classList.add('overload');
+        //console.log("overload\n");
+        const label = document.querySelector('label[for="paycheck"]');
+        const text = document.createElement('span');
+        text.className = 'overload-text';
+        text.textContent = ' - перевищує дохід';
+        label.appendChild(text);
+    }
     
-    let res; 
     let pers_a = Number(person_a_input.value);
     let pers_b = Number(person_b_input.value);
-    let paycheck = Number(paychek_field.value);
+    let paycheck = Number(paycheck_field.value);
     //res = parseFloat(person_a_input.value) + parseFloat(person_b_input.value);
     //res = Number(person_a_input.value) + Number(person_b_input.value);
-    console.log(pers_a + " " + pers_b );
+    //console.log(pers_a + " " + pers_b );
 
     let sum = pers_a + pers_b;
     let pers_a_part, pers_b_part, pers_a_per,pers_b_per ;
@@ -111,18 +91,14 @@ BtnCalc.addEventListener('click', ()=>{
         
         pers_a_per = (pers_a / sum) * 100;
         pers_b_per = (pers_b / sum) * 100;
-        console.log("nice " + pers_a_per + " " + pers_b_per);
+        //console.log("nice " + pers_a_per + " " + pers_b_per);
         PersAper.textContent = pers_a_per.toFixed(2);
         PersBper.textContent = pers_b_per.toFixed(2);
         pers_a_part = paycheck * (pers_a_per / 100);
         pers_b_part = paycheck * (pers_b_per / 100);
         PersApart.textContent = pers_a_part.toFixed(2);
         PersBpart.textContent = pers_b_part.toFixed(2);
-        console.log("good " + pers_a_part + " " + pers_b_part);
+        //console.log("good " + pers_a_part + " " + pers_b_part);
     }
-    
-
-
-
-    
 })
+

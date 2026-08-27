@@ -44,6 +44,11 @@ h1 {
     filter: drop-shadow(0 4px 10px #fc3737);
 }
 
+.field-card.overload{
+    border: 2px solid #e6bf12;
+    filter: drop-shadow(0 4px 10px #f8a711);
+}
+
 .field-icon {
     flex-shrink: 0;
     color: #667085;
@@ -75,6 +80,14 @@ h1 {
 
 .field-text input::placeholder {
     color: #98a2b3;
+}
+
+.overload-text{
+    
+    color: #98a2b3;
+    text-align: left;
+    font-size: 12pt;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 .button-calc-div {
