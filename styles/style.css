@@ -179,3 +179,13 @@ h1 {
     font-weight: 700;
     color: #1a1a1a;
 }
+
+.circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid #d0d5dd;
+    background: #ffffff;
+    margin: 20px auto 0;
+}

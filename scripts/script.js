@@ -102,3 +102,14 @@ BtnCalc.addEventListener('click', ()=>{
     }
 })
 
+function circle(){
+    const results = document.querySelector('.results');
+    const circleDiv = document.createElement('div');
+    results.appendChild(circleDiv);
+    let size = 300;
+    circleDiv.className = 'circle';
+    circleDiv.style.width = `${size}px`;
+    circleDiv.style.height = `${size}px`;
+}
+
+circle();
