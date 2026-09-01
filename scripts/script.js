@@ -41,12 +41,16 @@ const PersBper = document.getElementById('resultBOutput');
 const PersApart = document.getElementById('PartAOutput');
 const PersBpart = document.getElementById('PartBOutput');
 const FieldCard = document.getElementsByClassName('field-card');
+const PaycheckNote = document.getElementById('paycheck-note');
 
 BtnCalc.addEventListener('click', ()=>{
     
+
     for(let i = 0; i < FieldCard.length; i++){
         FieldCard[i].classList.remove('fail');
+        FieldCard[i].classList.remove('overload');
     }
+    PaycheckNote.textContent = '';
     //console.log(Number.isFinite(Number(""))+ " " + Number("")) ;    // ?
     //console.log(Number.isFinite(parseFloat("")) + " " + parseFloat("")) ; // ?
     if(!Number.isFinite(parseFloat(person_a_input.value)) && !Number.isFinite(parseFloat(person_b_input.value))){
@@ -67,16 +71,14 @@ BtnCalc.addEventListener('click', ()=>{
         FieldCard[2].classList.add('fail');
         return;
     } 
-    if(Number(paycheck_field.value) > Number(person_a_input.value) + Number(person_b_input.value)){
-        FieldCard[2].classList.add('overload');
-        //console.log("overload\n");
-        const label = document.querySelector('label[for="paycheck"]');
-        const text = document.createElement('span');
-        text.className = 'overload-text';
-        text.textContent = ' - перевищує дохід';
-        label.appendChild(text);
+    
+
+    if (Number(paycheck_field.value) > Number(person_a_input.value) + Number(person_b_input.value)) {
+    FieldCard[2].classList.add('overload');
+    PaycheckNote.textContent = ' — перевищує дохід';
     }
     
+
     let pers_a = Number(person_a_input.value);
     let pers_b = Number(person_b_input.value);
     let paycheck = Number(paycheck_field.value);
