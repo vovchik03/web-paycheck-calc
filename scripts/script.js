@@ -89,8 +89,6 @@ BtnCalc.addEventListener('click', ()=>{
     let sum = pers_a + pers_b;
     let pers_a_part, pers_b_part, pers_a_per,pers_b_per ;
 
-    if(sum !== pers_a || sum !== pers_b){
-        
         pers_a_per = (pers_a / sum) * 100;
         pers_b_per = (pers_b / sum) * 100;
         //console.log("nice " + pers_a_per + " " + pers_b_per);
@@ -101,7 +99,8 @@ BtnCalc.addEventListener('click', ()=>{
         PersApart.textContent = pers_a_part.toFixed(2);
         PersBpart.textContent = pers_b_part.toFixed(2);
         //console.log("good " + pers_a_part + " " + pers_b_part);
-    }
+        ResultsExtra.classList.add('open');
+        requestAnimationFrame(() => circleDiv.classList.add('visible'));
 })
 
 function circle(){
