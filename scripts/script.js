@@ -42,6 +42,7 @@ const PersApart = document.getElementById('PartAOutput');
 const PersBpart = document.getElementById('PartBOutput');
 const FieldCard = document.getElementsByClassName('field-card');
 const PaycheckNote = document.getElementById('paycheck-note');
+const ResultsExtra = document.getElementById('resultsExtra');
 
 BtnCalc.addEventListener('click', ()=>{
     
@@ -104,13 +105,14 @@ BtnCalc.addEventListener('click', ()=>{
 })
 
 function circle(){
-    const results = document.querySelector('.results');
+    const target = document.getElementById('resultsExtra');
     const circleDiv = document.createElement('div');
-    results.appendChild(circleDiv);
     let size = 300;
     circleDiv.className = 'circle';
     circleDiv.style.width = `${size}px`;
     circleDiv.style.height = `${size}px`;
+    target.appendChild(circleDiv);
+    return circleDiv;
 }
 
-circle();
+const circleDiv = circle();
