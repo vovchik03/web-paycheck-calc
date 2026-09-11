@@ -126,6 +126,12 @@ function animateCircleLabel(targetAngle){
 
 function circle(){
     const target = document.getElementById('resultsExtra');
+
+    const title = document.createElement('h3');
+    title.className = 'circle-title';
+    title.textContent = 'ВИКОРИСТАНО БЮДЖЕТУ';
+    target.appendChild(title);
+
     const circleDiv = document.createElement('div');
     let size = 300;
     circleDiv.className = 'circle';
