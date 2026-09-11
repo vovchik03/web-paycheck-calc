@@ -80,6 +80,22 @@
             </symbol>
 
         </svg>
+        <!-- Photoshop-style Inner Shadow для заповненого сектора кола -->
+        <svg width="0" height="0" style="position: absolute;" aria-hidden="true">
+            <filter id="pie-inner-shadow" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB">
+                <!-- PS: Angle 90 / Distance 4px -->
+                <feOffset in="SourceAlpha" dx="0" dy="0" result="pis-offset"/>
+                <!-- PS: Size 6px -->
+                <feGaussianBlur in="pis-offset" stdDeviation="7" result="pis-blur"/>
+                <!-- те, що всередині фігури, але поза зміщеною копією = внутрішня тінь -->
+                <feComposite in="SourceAlpha" in2="pis-blur" operator="out" result="pis-shape"/>
+                <!-- PS: Color / Opacity -->
+                <feFlood flood-color="#5c2d00" flood-opacity="0.55" result="pis-color"/>
+                <feComposite in="pis-color" in2="pis-shape" operator="in" result="pis-shadow"/>
+                <!-- PS: Blend Mode = Multiply -->
+                <feBlend in="pis-shadow" in2="SourceGraphic" mode="multiply"/>
+            </filter>
+        </svg>
 </main>
 
 

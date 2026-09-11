@@ -102,7 +102,27 @@ BtnCalc.addEventListener('click', ()=>{
         //console.log("good " + pers_a_part + " " + pers_b_part);
         ResultsExtra.classList.add('open');
         requestAnimationFrame(() => circleDiv.classList.add('visible'));
+        const budgetPersent = Math.min((paycheck / sum) * 100, 100);
+        const targetAngle = budgetPersent * 3.6;
+        circleDiv.style.setProperty('--persent-angle',`${targetAngle}deg`);
+        animateCircleLabel(targetAngle);
 })
+
+// цифра в центрі читає проміжне значення --persent-angle прямо з transition,
+// тому рухається синхронно з сектором (той самий ease і затримка)
+let labelRaf = 0;
+function animateCircleLabel(targetAngle){
+    cancelAnimationFrame(labelRaf);
+    const tick = () => {
+        const angle = parseFloat(getComputedStyle(circleDiv).getPropertyValue('--persent-angle')) || 0;
+        circleLabel.textContent = `${Math.round(angle / 3.6)}%`;
+        if(Math.abs(angle - targetAngle) < 0.01){
+            return;
+        }
+        labelRaf = requestAnimationFrame(tick);
+    };
+    labelRaf = requestAnimationFrame(tick);
+}
 
 function circle(){
     const target = document.getElementById('resultsExtra');
@@ -111,8 +131,22 @@ function circle(){
     circleDiv.className = 'circle';
     circleDiv.style.width = `${size}px`;
     circleDiv.style.height = `${size}px`;
+
+    const shadowed = document.createElement('div');
+    shadowed.className = 'circle__shadowed';
+    const fill = document.createElement('div');
+    fill.className = 'circle__fill';
+    shadowed.appendChild(fill);
+    circleDiv.appendChild(shadowed);
+
+    const label = document.createElement('span');
+    label.className = 'circle__label';
+    label.textContent = '0%';
+    circleDiv.appendChild(label);
+
     target.appendChild(circleDiv);
     return circleDiv;
 }
 
 const circleDiv = circle();
+const circleLabel = circleDiv.querySelector('.circle__label');
