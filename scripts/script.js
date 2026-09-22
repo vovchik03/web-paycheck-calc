@@ -100,30 +100,50 @@ BtnCalc.addEventListener('click', ()=>{
         PersApart.textContent = pers_a_part.toFixed(2);
         PersBpart.textContent = pers_b_part.toFixed(2);
         //console.log("good " + pers_a_part + " " + pers_b_part);
-        const wasOpen = ResultsExtra.classList.contains('open');
         ResultsExtra.classList.add('open');
         requestAnimationFrame(() => circleDiv.classList.add('visible'));
         const budgetPersent = Math.min((paycheck / sum) * 100, 100);
         const targetAngle = budgetPersent * 3.6;
         circleDiv.style.setProperty('--persent-angle',`${targetAngle}deg`);
         animateCircleLabel(targetAngle);
-        scrollToCircleOnOpen(wasOpen);
+        scrollToCircle();
 })
 
+// власний твін замість scrollIntoView: браузер не дає керувати тривалістю,
+// а так скрол закінчується рівно тоді ж, коли доростає сектор і цифра
+let scrollRaf = 0;
 function scrollToCircle(){
-    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    circleDiv.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    cancelAnimationFrame(scrollRaf);
+    if(matchMedia('(prefers-reduced-motion: reduce)').matches){
+        window.scrollTo(0, circleTargetY());
+        return;
+    }
+    const from = window.scrollY;
+    const start = performance.now();
+    const duration = 1500;                       // як transition --persent-angle
+    const tick = (now) => {
+        const t = Math.min((now - start) / duration, 1);
+        const eased = t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2;   // easeInOutCubic
+        window.scrollTo(0, from + (circleTargetY() - from) * eased);
+        if(t < 1){
+            scrollRaf = requestAnimationFrame(tick);
+        }
+    };
+    scrollRaf = requestAnimationFrame(tick);
 }
 
-let scrollFixTimer = 0;
-function scrollToCircleOnOpen(wasOpen){
-    scrollToCircle();
-    if(wasOpen){
-        return;                 
-    }
-    clearTimeout(scrollFixTimer);
-    scrollFixTimer = setTimeout(scrollToCircle, 550);   
+// ціль перераховується щокадру: поки .results-extra розкривається,
+// змінюється і позиція кола, і межа, до якої взагалі можна доскролити
+function circleTargetY(){
+    const rect = circleDiv.getBoundingClientRect();
+    const centered = window.scrollY + rect.top + rect.height / 2 - window.innerHeight / 2;
+    const max = document.documentElement.scrollHeight - window.innerHeight;
+    return Math.max(0, Math.min(centered, max));
 }
+
+// якщо користувач сам почав крутити — не воюємо з ним
+['wheel','touchstart','keydown'].forEach(type =>
+    window.addEventListener(type, () => cancelAnimationFrame(scrollRaf), { passive: true }));
 
 let labelRaf = 0;
 function animateCircleLabel(targetAngle){

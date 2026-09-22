@@ -186,7 +186,7 @@ h1 {
     font-weight: 800;
     letter-spacing: 0.08em;
     text-indent: 0.08em;       /* компенсує трекінг після останньої літери */
-    font-family: calibri;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: #667085;
     margin: 5px 0 0;
 }
@@ -214,7 +214,7 @@ h1 {
     transform: scale(0.85);
     transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s, --persent-angle 0.8s ease 0.5s;
     filter: drop-shadow(0 4px 10px #52515170);
-    box-shadow: inset 0 0px 100px #383839cc;
+    box-shadow: inset 0 0px 100px #38383944;
 }
 
 /* носій фільтра: в CSS mask застосовується ПІСЛЯ filter,
