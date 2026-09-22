@@ -168,10 +168,7 @@ function circle(){
     target.appendChild(title);
 
     const circleDiv = document.createElement('div');
-    let size = 300;
     circleDiv.className = 'circle';
-    circleDiv.style.width = `${size}px`;
-    circleDiv.style.height = `${size}px`;
 
     const shadowed = document.createElement('div');
     shadowed.className = 'circle__shadowed';
@@ -191,3 +188,30 @@ function circle(){
 
 const circleDiv = circle();
 const circleLabel = circleDiv.querySelector('.circle__label');
+const circleTitle = ResultsExtra.querySelector('.circle-title');
+
+// коло підганяється під ширину контейнера: жорсткі 300px не влазили в .results
+// на телефоні, і overflow:hidden різав саме коло разом із тінню
+function layoutCircle(){
+    const BORDER = 10;     // border: 5px з двох боків
+    const GAP = 12;        // запас, щоб drop-shadow не впирався в межу обрізання
+    const room = ResultsExtra.clientWidth - GAP * 2 - BORDER;
+    const size = Math.max(180, Math.min(300, room));
+    circleDiv.style.width = `${size}px`;
+    circleDiv.style.height = `${size}px`;
+    // висоту рахуємо під фактичний розмір, бо height:auto не анімується
+    const height = 5                       // margin-top заголовка
+        + circleTitle.offsetHeight
+        + 20                               // margin-top кола
+        + size + BORDER
+        + 16;                              // нижня тінь: 4px зсуву + 10px розмиття
+    ResultsExtra.style.setProperty('--extra-height', `${height}px`);
+}
+
+layoutCircle();
+
+let layoutRaf = 0;
+window.addEventListener('resize', () => {
+    cancelAnimationFrame(layoutRaf);
+    layoutRaf = requestAnimationFrame(layoutCircle);
+});

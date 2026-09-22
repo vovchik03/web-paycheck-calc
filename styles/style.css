@@ -278,8 +278,7 @@ h1 {
 }
 
 .results-extra.open {
-    height: 410px;
+    height: var(--extra-height, 410px);   /* значення рахує layoutCircle() */
 }
-
 
 
