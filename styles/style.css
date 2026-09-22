@@ -179,12 +179,13 @@ h1 {
     color: #1a1a1a;
 }
 .circle-title{
-    position: relative;
- /*   display: flex;*/
-    text-align: center;
+    display: flex;
+    justify-content: center;   /* горизонталь: головна вісь рядка */
+    align-items: center;       /* знадобиться, коли поруч стане іконка/число */
     font-size: 22px;
     font-weight: 800;
     letter-spacing: 0.08em;
+    text-indent: 0.08em;       /* компенсує трекінг після останньої літери */
     font-family: calibri;
     color: #667085;
     margin: 5px 0 0;
@@ -213,7 +214,7 @@ h1 {
     transform: scale(0.85);
     transition: opacity 0.4s ease 0.5s, transform 0.4s ease 0.5s, --persent-angle 0.8s ease 0.5s;
     filter: drop-shadow(0 4px 10px #52515170);
-    box-shadow: inset 0 0px 100px #383839;
+    box-shadow: inset 0 0px 100px #383839cc;
 }
 
 /* носій фільтра: в CSS mask застосовується ПІСЛЯ filter,

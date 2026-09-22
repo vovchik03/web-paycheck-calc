@@ -100,16 +100,31 @@ BtnCalc.addEventListener('click', ()=>{
         PersApart.textContent = pers_a_part.toFixed(2);
         PersBpart.textContent = pers_b_part.toFixed(2);
         //console.log("good " + pers_a_part + " " + pers_b_part);
+        const wasOpen = ResultsExtra.classList.contains('open');
         ResultsExtra.classList.add('open');
         requestAnimationFrame(() => circleDiv.classList.add('visible'));
         const budgetPersent = Math.min((paycheck / sum) * 100, 100);
         const targetAngle = budgetPersent * 3.6;
         circleDiv.style.setProperty('--persent-angle',`${targetAngle}deg`);
         animateCircleLabel(targetAngle);
+        scrollToCircleOnOpen(wasOpen);
 })
 
-// цифра в центрі читає проміжне значення --persent-angle прямо з transition,
-// тому рухається синхронно з сектором (той самий ease і затримка)
+function scrollToCircle(){
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    circleDiv.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+}
+
+let scrollFixTimer = 0;
+function scrollToCircleOnOpen(wasOpen){
+    scrollToCircle();
+    if(wasOpen){
+        return;                 
+    }
+    clearTimeout(scrollFixTimer);
+    scrollFixTimer = setTimeout(scrollToCircle, 550);   
+}
+
 let labelRaf = 0;
 function animateCircleLabel(targetAngle){
     cancelAnimationFrame(labelRaf);
